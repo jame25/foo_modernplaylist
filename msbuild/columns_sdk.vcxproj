@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F65066EC-E588-58A1-B595-E70368C773A7}</ProjectGuid>
+    <RootNamespace>columns_sdk</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset Condition="'$(PlatformToolset)'==''">v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="common.props" />
+  <ItemGroup>
+    <ClCompile Include="..\lib\columns_ui\columns_ui-sdk\callback.cpp" />
+    <ClCompile Include="..\lib\columns_ui\columns_ui-sdk\colours.cpp" />
+    <ClCompile Include="..\lib\columns_ui\columns_ui-sdk\dwrite_utils.cpp" />
+    <ClCompile Include="..\lib\columns_ui\columns_ui-sdk\fonts.cpp" />
+    <ClCompile Include="..\lib\columns_ui\columns_ui-sdk\font_manager_v3.cpp" />
+    <ClCompile Include="..\lib\columns_ui\columns_ui-sdk\font_utils.cpp" />
+    <ClCompile Include="..\lib\columns_ui\columns_ui-sdk\panel_utils.cpp" />
+    <ClCompile Include="..\lib\columns_ui\columns_ui-sdk\win32_helpers.cpp" />
+    <ClCompile Include="..\lib\columns_ui\columns_ui-sdk\window_helper.cpp" />
+    <ClCompile Include="..\lib\columns_ui\columns_ui-sdk\columns_ui.cpp" />
+    <ClCompile Include="..\lib\columns_ui\columns_ui-sdk\ui_extension.cpp" />
+    <ClCompile Include="..\lib\columns_ui\columns_ui-sdk\container_window_v3.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

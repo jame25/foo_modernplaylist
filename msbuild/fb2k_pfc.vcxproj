@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{658254ED-31F1-5A6E-A355-E955B495415A}</ProjectGuid>
+    <RootNamespace>fb2k_pfc</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset Condition="'$(PlatformToolset)'==''">v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="common.props" />
+  <ItemGroup>
+    <ClCompile Include="..\lib\columns_ui\pfc\audio_math.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\audio_sample.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\base64.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\bigmem.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\bit_array.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\bsearch.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\charDownConvert.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\cpuid.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\crashWithMessage.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\filehandle.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\filetimetools.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\guid.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\other.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\pathUtils.cpp" />
+    <!-- The foobar2000 SDK supplies these hooks in utility.cpp. -->
+    <ClCompile Include="..\lib\columns_ui\pfc\printf.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\selftest.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\SmartStrStr.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\sort.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\splitString2.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\string-compare.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\string-conv-lite.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\string-lite.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\string_base.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\string_conv.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\threads.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\timers.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\unicode-normalize.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\utf8.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\wildcard.cpp" />
+    <ClCompile Include="..\lib\columns_ui\pfc\win-objects.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

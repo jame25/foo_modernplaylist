@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{CFC244A3-1E21-5E58-8219-38AC3BFC8873}</ProjectGuid>
+    <RootNamespace>fb2k_sdk</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset Condition="'$(PlatformToolset)'==''">v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="common.props" />
+  <ItemGroup>
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\abort_callback.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\advconfig.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\album_art.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\app_close_blocker.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\audio_chunk.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\audio_chunk_channel_config.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\cfg_var.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\cfg_var_legacy.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\chapterizer.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\commandline.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\commonObjects.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\completion_notify.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\componentversion.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\configStore.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\config_io_callback.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\config_object.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\console.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\dsp.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\dsp_manager.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\file_cached_impl.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\file_info.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\file_info_const_impl.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\file_info_impl.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\file_info_merge.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\file_operation_callback.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\filesystem.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\filesystem_helper.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\foosort.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\fsItem.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\guids.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\hasher_md5.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\image.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\input.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\input_file_type.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\link_resolver.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\mainmenu.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\main_thread_callback.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\mem_block_container.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\menu_helpers.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\menu_item.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\menu_manager.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\metadb.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\metadb_handle.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\metadb_handle_list.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\output.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\packet_decoder.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\playable_location.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\playback_control.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\playlist.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\playlist_loader.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\popup_message.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\preferences_page.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\replaygain.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\replaygain_info.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\service.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\tag_processor.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\tag_processor_id3v2.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\threaded_process.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\titleformat.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\track_property.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\ui.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\ui_element.cpp" />
+    <ClCompile Include="..\lib\columns_ui\foobar2000-sdk-modified\SDK\utility.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>
