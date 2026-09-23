@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1A059CCF-EC3A-5193-98D9-9134D92E7120}</ProjectGuid>
+    <RootNamespace>foo_modernplaylist</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset Condition="'$(PlatformToolset)'==''">v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="msbuild/common.props" />
+  <ItemGroup>
+    <ClCompile Include="src\component.cpp" />
+    <ClCompile Include="src\special_playlists.cpp" />
+    <ClCompile Include="src\playlist_view.cpp" />
+    <ClCompile Include="src\playlist_viewport.cpp" />
+    <ClCompile Include="src\columns_panel.cpp" />
+    <ClCompile Include="src\preferences.cpp" />
+    <ClCompile Include="lib\columns_ui\foobar2000-sdk-modified\foobar2000_component_client\component_client.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\dialogs.rc" />
+    <ClInclude Include="src\playlist_view.h" />
+    <ClInclude Include="src\model.h" /><ClInclude Include="src\search_model.h" /><ClInclude Include="src\manager_model.h" /><ClInclude Include="src\special_playlists.h" /><ClInclude Include="src\grouping.h" />
+    <ClInclude Include="src\playlist_core.h" />
+    <ClInclude Include="src\playlist_viewport.h" />
+    <ClInclude Include="src\scroll_model.h" />
+    <ClInclude Include="src\viewport_accessibility.h" />
+    <ClInclude Include="src\resource.h" />
+  </ItemGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(RepoRoot)lib\columns_ui\foobar2000-sdk-modified\shared\shared-$(Platform).lib;windowscodecs.lib;d2d1.lib;dwrite.lib;oleacc.lib;comdlg32.lib;comctl32.lib;uxtheme.lib;shlwapi.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;winmm.lib;ws2_32.lib;dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectReference Include="msbuild\fb2k_pfc.vcxproj">
+      <Project>{658254ED-31F1-5A6E-A355-E955B495415A}</Project>
+    </ProjectReference>
+    <ProjectReference Include="msbuild\fb2k_sdk.vcxproj">
+      <Project>{CFC244A3-1E21-5E58-8219-38AC3BFC8873}</Project>
+    </ProjectReference>
+    <ProjectReference Include="msbuild\columns_sdk.vcxproj">
+      <Project>{F65066EC-E588-58A1-B595-E70368C773A7}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>
+
