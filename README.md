@@ -1,304 +1,330 @@
 # foo_modernplaylist
 
-A sleek, high-performance playlist manager component for **foobar2000**, featuring integrated playlist tabs, real-time live search, customizable title-formatting columns, and seamless support for both **Default User Interface (DUI)** and **Columns UI (CUI)**.
+**Modern Playlist** is a native Windows playlist component for foobar2000, with
+configurable title-format columns, album grouping and artwork, search, and an
+optional horizontal playlist manager. The same DLL provides a **Default User
+Interface (DUI)** element and a **Columns UI (CUI)** panel.
 
----
+## Contents
 
-## Table of Contents
+- [Requirements and installation](#requirements-and-installation)
+- [Adding the panel](#adding-the-panel)
+- [Playlist manager](#playlist-manager)
+- [Columns and appearance](#columns-and-appearance)
+- [Groups and artwork](#groups-and-artwork)
+- [Search](#search)
+- [Track operations and shortcuts](#track-operations-and-shortcuts)
+- [Saved settings](#saved-settings)
+- [Building and validation](#building-and-validation)
+- [Credits](#credits)
 
-- [Overview](#overview)
-- [Key Features](#key-features)
-  - [Integrated Playlist Tabs](#integrated-playlist-tabs)
-  - [Real-Time Live Search & Filtering](#real-time-live-search--filtering)
-  - [High-Performance Virtual Track List](#high-performance-virtual-track-list)
-  - [Customizable Columns & Proportional Sizing](#customizable-columns--proportional-sizing)
-  - [Dynamic Theming & High-DPI Support](#dynamic-theming--high-dpi-support)
-- [Compatibility & Requirements](#compatibility--requirements)
-- [Installation](#installation)
-  - [Standard Installation (.fb2k-component)](#standard-installation-fb2k-component)
-  - [Manual Installation](#manual-installation)
-- [User Interface Setup Guide](#user-interface-setup-guide)
-  - [Setting Up in Default UI (DUI)](#setting-up-in-default-ui-dui)
-  - [Replacing Default UI Tabs (Clean Look)](#replacing-default-ui-tabs-clean-look)
-  - [Setting Up in Columns UI (CUI)](#setting-up-in-columns-ui-cui)
-- [User Guide & Functionality](#user-guide--functionality)
-  - [Managing Playlists & Tabs](#managing-playlists--tabs)
-  - [Using Search & Search Syntax](#using-search--search-syntax)
-  - [Customizing & Reordering Columns](#customizing--reordering-columns)
-  - [Track Operations & Playback](#track-operations--playback)
-  - [Column Sizing Modes: Fit to Window](#column-sizing-modes-fit-to-window)
-- [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference)
-- [Building from Source](#building-from-source)
-- [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
-- [License & Credits](#license--credits)
+## Requirements and installation
 
----
+- **foobar2000 2.0 or newer for Windows.** The component uses playlist GUIDs for
+  persistent playlist identity.
+- **x64 or Win32**, matching your foobar2000 installation. ARM builds are not
+  supported by the current build configuration.
+- Default UI, or Columns UI if you want to use the CUI panel. Columns UI is not
+  required when using Default UI.
 
-## Overview
+Install a matching `foo_modernplaylist.fb2k-component` package through
+**File → Preferences → Components → Install…**, apply the change, and restart
+foobar2000. Confirm that **Modern Playlist** appears in the component list.
 
-**Modern Playlist** brings a clean, contemporary playlist experience to foobar2000. It provides fluid interaction, instant search filtering, and complete aesthetic control without heavy external UI dependencies or third-party frameworks.
+## Adding the panel
 
-All core playback, media metadata, playlist locking, playback queues, and undo history remain strictly owned by foobar2000—ensuring rock-solid stability and zero audio compromises.
-
----
-
-## Key Features
-
-### Integrated Playlist Tabs
-- **Embedded Styled Tabs**: Clean, modern tab strip rendered directly above the search bar.
-- **One-Click Playlist Creation**: Hit the **`+`** button (or press `Ctrl+N` / `Ctrl+T`) to instantly create and switch to a new playlist without disruptive name prompt dialogs.
-- **Smart Adaptive `+` Placement**: The `+` button neatly docks beside the rightmost tab; when tabs fill the available window width, the tab strip enables scrolling while the `+` button stays pinned and accessible at the far right.
-- **Fluid Tab Scrolling**: Overflow navigation arrows and **mouse wheel scrolling** support over the tab strip.
-- **Drag-and-Drop Reordering**: Drag tabs left or right to reorder them on the fly.
-- **Active Playback Indicator**: The playlist currently playing music automatically displays an animated speaker wave icon in its tab in place of the close button.
-- **Convenient Tab Controls**: Quick **`×`** button to close playlists (with confirmation) and right-click context menu to rename, remove, or shift tabs.
-- **Optional Display**: The tab strip can be toggled on or off (`Show playlist tabs`) per panel instance, ensuring you never have duplicate tabs if your host layout already provides them.
-
-### Real-Time Live Search & Filtering
-- **Instant Search Debounce**: Fast 180ms debounced search that filters tracks as you type.
-- **Full foobar2000 Query Syntax**: Supports field queries (`artist HAS Beatles`, `album IS "Abbey Road"`), numerical comparisons (`%rating% GREATER 3`, `%bitrate% GREATER 320`), and Boolean operators (`AND`, `OR`, `NOT`).
-- **Inline Syntax Feedback**: Non-intrusive notification displayed directly below the search bar when an incomplete or invalid query is entered; vanishes immediately once corrected.
-- **Per-Playlist Search Memory**: Each playlist remembers its own active search query even when switching between tabs.
-- **Quick Shortcuts**: Press `Ctrl+F` while the Modern Playlist panel has focus to jump to and highlight search; press `Escape` to immediately clear search and restore focus to the track list.
-
-### High-Performance Virtual Track List
-- **Handles Massive Libraries**: Virtual list-view architecture handles tens of thousands of tracks with zero stutter or memory bloat.
-- **Independent Index Mapping**: Tracks are indexed by playlist slot, not file path, keeping duplicate occurrences of tracks properly distinct and independently selectable.
-- **Non-Destructive Filtered Operations**: When filtering with search, actions like deleting, moving, copying, or enqueuing apply **only** to the visible filtered rows. Hidden tracks and their original order remain completely safe and untouched.
-- **Full Undo / Redo**: Seamless integration with foobar2000's native undo system (`Ctrl+Z` / `Ctrl+Y`).
-- **Track Reordering**: Drag-and-drop tracks to insert before any target row or at the bottom. Use `Alt+Up` and `Alt+Down` to nudge selected tracks up or down.
-- **Native Clipboard & Context Menu**: Full support for `Ctrl+C` (copy), `Ctrl+X` (cut), and `Ctrl+V` (paste foobar2000 tracks), plus the complete foobar2000 context menu (Properties, ReplayGain, Convert, Quick Tagger, etc.).
-
-### Customizable Columns & Proportional Sizing
-- **Default Columns Out of the Box**: `#` (Track Number), `Title`, `Artist`, `Album`, `Length`, and `Format` (Codec).
-- **Custom Title-Formatting Expressions**: Add or modify any column using standard foobar2000 title formatting syntax (e.g., `%bitrate% kbps`, `[%replaygain_track_gain%]`, `$if2(%album artist%,%artist%)`).
-- **Flexible Alignment**: Left, Center, or Right alignment per column.
-- **Header Drag-and-Drop**: Drag column headers horizontally to rearrange column order.
-- **Fit to Window (Proportional Sizing)**: Enabled by default. Proportional auto-sizing adjusts visible columns to span 100% of the viewport without unwanted horizontal scrollbars. Dragging a column border resizes it and automatically recalculates relative proportions.
-- **Standard Width Mode**: Toggle off *Fit to Window* to use fixed column widths with the last column expanding to fill empty space, or horizontal scrolling if columns exceed the window width.
-- **Per-Playlist Column Configurations**: Columns, widths, and visibility can be saved independently for each playlist.
-
-### Dynamic Theming & High-DPI Support
-- **Default UI Color & Font Integration**: Dynamically inherits playlist fonts (`ui_font_playlists`), tab fonts (`ui_font_tabs`), and standard fonts (`ui_font_default`).
-- **Automatic Dark Mode**: Seamlessly follows foobar2000 Preferences → Default User Interface → Colors and Fonts (supports **Dark**, **Light**, and dynamic **Use system setting**).
-- **Columns UI Palette**: Renders a clean charcoal/dark-slate or crisp light theme with refined Segoe UI typography, smooth hover transitions, and cyan selection highlights.
-- **High-DPI Awareness**: All row heights, header heights, search boxes, tab buttons, padding, and icons scale sharply across high-resolution displays (100%, 125%, 150%, 175%, 200%+).
-
----
-
-## Compatibility & Requirements
-
-- **Operating System**: Windows 10 or Windows 11 (64-bit or 32-bit).
-- **foobar2000 Version**: foobar2000 **v2.0** or newer (v2.1+ recommended; 64-bit and 32-bit versions supported).
-- **User Interfaces**:
-  - **Default User Interface (DUI)**: Built-in, fully supported.
-  - **Columns UI (CUI)**: Optional; fully supported when Columns UI is installed.
-
----
-
-## Installation
-
-### Standard Installation (`.fb2k-component`)
-
-1. Download the latest `foo_modernplaylist.fb2k-component`.
-2. Launch foobar2000.
-3. Open the preferences dialog: **File → Preferences** (or press `Ctrl+P`).
-4. In the left panel, select **Components**.
-5. Click the **Install...** button at the bottom of the page.
-6. Browse to and select `foo_modernplaylist.fb2k-component`, then click **Open**.
-7. Click **Apply** (foobar2000 will prompt to restart).
-8. Once restarted, verify that **Modern Playlist** is listed under **Preferences → Components**.
-
-### Manual Installation
-
-For portable installations:
-1. Extract or place `foo_modernplaylist.dll` into the `components/foo_modernplaylist` directory inside your foobar2000 installation folder (or `%APPDATA%\foobar2000-v2\user-components\foo_modernplaylist`).
-2. Restart foobar2000.
-
----
-
-## User Interface Setup Guide
-
-### Setting Up in Default UI (DUI)
-
-1. Open foobar2000.
-2. From the main menu, select **View → Layout → Enable layout editing mode**.
-3. Right-click an existing panel area (such as the standard playlist or an empty splitter) and choose **Add New UI Element...** (or **Replace UI Element...**).
-4. In the selection dialog, expand **Playlist renderers** and select **Modern Playlist**.
-5. Click **OK**.
-6. When finished organizing your layout, go to **View → Layout → Enable layout editing mode** to turn off editing mode.
-
-### Replacing Default UI Tabs (Clean Look)
-
-If you want to use Modern Playlist's built-in styled tabs without having duplicate playlist tabs from foobar2000:
+### Default UI
 
 1. Enable **View → Layout → Enable layout editing mode**.
-2. Right-click the **Modern Playlist** element and select **Copy UI Element**.
-3. Right-click the outer **Playlist Tabs** container above it and select **Paste UI Element**.
-   *(This cleanly replaces the host's tab container with Modern Playlist while keeping your configuration intact).*
-4. Turn off layout editing mode (**View → Layout → Enable layout editing mode**).
-5. Right-click the column header or the track list in Modern Playlist and check **Show playlist tabs**.
+2. Add or replace a UI element with **Playlist renderers → Modern Playlist**.
+3. Leave layout editing mode when finished.
 
-> [!TIP]
-> If *Copy/Paste UI Element* is not visible, right-click the outer native tabs container in layout editing mode, choose **Replace UI Element... → Modern Playlist**, and enable **Show playlist tabs**.
+The panel follows Default UI's playlist, tab, and standard fonts and its colors,
+including light/dark changes.
 
-### Setting Up in Columns UI (CUI)
+### Columns UI
 
-1. Open **File → Preferences** (`Ctrl+P`) and navigate to **Display → Columns UI**.
-2. Click the **Layout** tab.
-3. Select the splitter where you want the playlist to appear.
-4. Click **Insert Panel** (or right-click → **Insert panel**).
-5. Choose **Playlist views → Modern Playlist**.
-6. Click **Apply** or **OK**.
-7. If your layout already contains a *Playlist tabs* toolbar or container and you wish to use Modern Playlist's integrated tabs instead, right-click the host *Playlist tabs* container in the Layout tree and choose **Change container type → Vertical splitter** (or remove the separate tabs item). Then right-click Modern Playlist's header and enable **Show playlist tabs**.
+In **Preferences → Display → Columns UI → Layout**, insert
+**Playlist views → Modern Playlist** into a splitter and apply the layout.
+The CUI panel uses the component's light/dark palette and Segoe UI typography,
+rather than Columns UI's common font and color settings.
 
----
+### Enabling the built-in tabs
 
-## User Guide & Functionality
+The component's playlist tabs are **off by default**. Right-click a column
+header and enable **Header Bar → Show playlist tabs**. Enable **Header Bar →
+Playlist manager below playlist** to move the strip to the bottom; the search
+row stays above the tracks.
 
-### Managing Playlists & Tabs
+If you already have host-provided tabs, either keep using them or remove their
+container to use the component's manager:
 
-| Action | How to Do It |
-| :--- | :--- |
-| **Toggle Tabs** | Right-click any column header or track area → click **Show playlist tabs**. |
-| **New Playlist** | Click the **`+`** button next to the tabs, or press `Ctrl+N` / `Ctrl+T`. |
-| **Switch Playlist** | Click any tab in the tab strip. |
-| **Reorder Tabs** | Click and drag any tab horizontally to its new position, or right-click the tab and choose **Move left** / **Move right**. |
-| **Scroll Tabs** | Use the left/right arrow buttons when tabs overflow, or scroll your **mouse wheel** over the tab strip. |
-| **Rename Playlist** | Right-click the tab and select **Rename...**. |
-| **Close Playlist** | Click the **`×`** button on the tab (unless it is currently playing), or right-click the tab and select **Remove playlist**. |
-| **Playing Playlist** | The tab currently playing music automatically displays a **speaker wave icon** instead of the close button. |
+- **Default UI:** in layout editing mode, copy the Modern Playlist element and
+  paste it over the outer Playlist Tabs element. Replacing that container with
+  a new Modern Playlist element is another option, but starts with fresh panel
+  settings.
+- **Columns UI:** change the Playlist tabs container to a **Vertical splitter**
+  in Layout preferences, retaining its child panel.
 
-### Using Search & Search Syntax
+Panel settings are in the header and track context menus. **Preferences → Tools
+→ Modern Playlist** currently contains an empty **General** tab.
 
-The rounded search bar filters tracks in real time.
+## Playlist manager
 
-- **Focus Search**: Press `Ctrl+F` to jump straight to the search box with all text selected.
-- **Clear Search**: Press `Escape` while search is focused to clear the filter and return focus to the tracks.
-- **Search Scope**: Search checks metadata across titles, artists, albums, and file paths.
-- **Advanced Query Examples**:
-  - `queen` — Finds tracks containing "queen" in common fields.
-  - `artist HAS radiohead` — Tracks where the artist contains "radiohead".
-  - `genre IS rock AND date AFTER 2000` — Rock tracks released after the year 2000.
-  - `album HAS "greatest hits" OR %codec% IS FLAC` — Multi-condition query.
-  - `%rating% GREATER 3` — Tracks with a rating of 4 or 5.
-  - `NOT %genre% IS classical` — Exclude classical music.
-- **Syntax Alerts**: If an invalid query or unmatched quote is entered, a helpful notice appears directly under the search box explaining the issue.
+- Click a tab to activate its playlist. The playing playlist shows a speaker
+  indicator in place of the close button.
+- Click **+** or press **Ctrl+N** to create and activate an automatically named
+  playlist without a name dialog.
+- Scroll overflowing tabs with the mouse wheel/trackpad or arrow buttons.
+  The **+** button remains accessible.
+- Drag tabs to reorder them, with an insertion marker and edge scrolling.
+  Escape cancels the drag.
+- Use the close button or **Remove** to remove ordinary playlists through
+  foobar2000's removal/confirmation flow.
 
-### Customizing & Reordering Columns
+Right-click a tab, the **+** button, or a scroll button for the manager menu:
 
-Right-click any column header to open the column configuration menu:
+| Command | Behavior |
+| --- | --- |
+| **Insert… / Add…** | Create a normal playlist or autoplaylist before the clicked tab or at the end. |
+| **Load a Playlist…** | Open the host's playlist-loading dialog. |
+| **Save this Playlist…** | Activate and save the clicked playlist using the host dialog. |
+| **Duplicate** | Copy all items, including repeated tracks, into a normal playlist. An autoplaylist becomes a snapshot. |
+| **Rename… / Remove** | Rename or remove the clicked playlist, subject to locks and special-playlist restrictions. |
+| **Move left / Move right** | Move the clicked playlist; the pinned Media Library playlist remains first. |
+| **Autoplaylist properties…** | Open the host's properties UI when supported. |
+| **Add files… / Add folder…** | Activate the clicked playlist and open the host's add dialog. |
+| **Sort playlists by name A–Z / Z–A** | Sort names case-insensitively, retaining the order of equal names and keeping Media Library first. |
 
-- **Show / Hide Columns**: Click any column name in the menu to toggle its checkmark. (At least one column always remains visible).
-- **Add Column**: Click **Add column...** to specify a Title, a foobar2000 Title Formatting pattern, and text Alignment (Left, Right, Center).
-- **Edit Column**: Click **Edit column...** on an existing column to change its expression, title, or alignment.
-- **Delete Column**: Click **Delete column** to remove the selected custom column.
-- **Reset Columns**: Click **Reset columns** to instantly restore standard default columns (`#`, `Title`, `Artist`, `Album`, `Length`, `Format`).
-- **Reorder Columns**: Click and hold any header, then drag it left or right to rearrange the visual order.
+### Autoplaylists
 
-#### Popular Title Formatting Expressions
+**New Autoplaylist…** accepts a name, foobar2000 search query, sort title format,
+and **Keep sorted** option. Keeping it sorted prevents manual track reordering.
+foobar2000 owns and persists the autoplaylist definition.
 
-| Column Title | Pattern Expression | Alignment |
-| :--- | :--- | :--- |
-| **Bitrate** | `%bitrate% kbps` | Right |
-| **Year / Date** | `[%date%]` | Center |
-| **Track / Total** | `[%tracknumber%/[%totaltracks%]]` | Right |
-| **Genre** | `[%genre%]` | Left |
-| **File Type** | `[%codec%[ %codec_profile%]]` | Left |
-| **ReplayGain** | `[%replaygain_track_gain%]` | Right |
+**Pre-defined Autoplaylist** offers never played, played in the last five days,
+unrated, rated 3–5, rated 4, rated 5, and loved tracks. These queries use
+`%play_count%`, `%last_played%`, `%rating%`, and `%mood%`. Results depend on the
+metadata/statistics available in your library; Modern Playlist does not collect
+play counts or write ratings.
 
-### Track Operations & Playback
+### Special playlists
 
-- **Play Track**: Double-click any row or press `Enter` to play the focused track.
-- **Select All**: Press `Ctrl+A` to select all visible tracks.
-- **Remove Tracks**: Press `Delete` to remove selected tracks from the playlist (this does **not** delete files from your disk).
-- **Undo / Redo**: Press `Ctrl+Z` to undo playlist alterations; press `Ctrl+Y` to redo.
-- **Reorder by Dragging**: Click and drag selected tracks up or down. A blue insertion marker highlights the destination row. Dropping on empty space moves them to the bottom.
-- **Nudge Selection**: Press `Alt+Up` or `Alt+Down` to shift selected tracks up or down by one row.
-- **Clipboard Operations**:
-  - `Ctrl+C`: Copy selected foobar2000 tracks to clipboard.
-  - `Ctrl+X`: Cut selected tracks.
-  - `Ctrl+V`: Pastes tracks copied from foobar2000.
-- **Queue Tracks**: Right-click track(s) → **Add to playback queue**.
-- **Track Context Menu**: Right-click selected tracks to access file management, tag editing, ReplayGain scanning, audio converter presets, and file properties.
+The manager's **Special playlists** submenu enables three optional features.
+All start disabled and are shared globally across panel instances.
 
-### Column Sizing Modes: Fit to Window
+| Playlist | Behavior |
+| --- | --- |
+| **Media Library** | An `ALL` autoplaylist, kept sorted and pinned first. |
+| **Historic** | Appends each newly started track, including repeated plays. Logging runs once globally, even with no panel visible. |
+| **Queue Content** | A read-only mirror of playback queue order, including duplicate entries. Its lock blocks content edits and renaming; synchronization does not modify the actual queue. |
 
-Right-click any column header or empty track area to toggle **Fit to Window**:
+These playlists are tracked by GUID. Enabling a feature creates its own playlist
+rather than adopting an existing playlist with the same name. Disable a feature
+through its toggle to remove its playlist; cancelling host removal keeps the
+feature enabled. Removing its playlist elsewhere disables the feature.
 
-- **Checked (Enabled - Default)**:
-  All visible columns dynamically scale to fill the entire horizontal width of the window. No horizontal scrollbar will appear. When you resize a column, its width relative to the others adjusts proportionally.
-- **Unchecked (Standard Mode)**:
-  Columns use their configured pixel widths. The last column stretches to fill remaining space. If the total width exceeds the window, standard horizontal scrolling is activated.
+## Columns and appearance
 
----
+The default visible columns are **State, #, Title, Artist, Album, Time**.
+The full built-in catalog also includes **Cover, Index, Year, Genre, Mood,
+Rating, Plays, Bitrate**.
 
-## Keyboard Shortcuts Reference
+Right-click a header for **Columns** controls to show/hide, add, edit, delete,
+or reset columns. At least one column must remain visible. The editor supports:
 
-| Shortcut | Context | Description |
-| :--- | :--- | :--- |
-| **`Ctrl+F`** | Global / List | Focuses search bar and selects existing query text. |
-| **`Escape`** | Search Bar | Clears search filter and returns focus to the track list. |
-| **`Enter`** | Track List | Plays the focused / selected track. |
-| **`Delete`** | Track List | Removes selected visible tracks from the playlist. |
-| **`Ctrl+A`** | Track List | Selects all visible tracks in the active view. |
-| **`Ctrl+N`** / **`Ctrl+T`** | Global / List | Creates and activates a new playlist immediately. |
-| **`Alt+Up`** | Track List | Nudges selected tracks up one row. |
-| **`Alt+Down`** | Track List | Nudges selected tracks down one row. |
-| **`Ctrl+C`** | Track List | Copies selected tracks to the clipboard. |
-| **`Ctrl+X`** | Track List | Cuts selected tracks to the clipboard. |
-| **`Ctrl+V`** | Track List | Pastes copied foobar2000 tracks into the playlist. |
-| **`Ctrl+Z`** | Track List | Restores previous playlist state (Undo). |
-| **`Ctrl+Y`** | Track List | Reapplies undone playlist modification (Redo). |
+- Primary and extra-line title-format expressions.
+- A separate sort expression and semantic reference, such as Text, State,
+  Cover, or Index.
+- Left, right, or center alignment and a proportional width weight.
 
----
+Drag headers to reorder columns and their edges to resize them. Click a header
+to sort ascending/descending using its sort expression, falling back to the
+primary title format. Sorting changes the playlist order and respects playlist
+locks. With a search filter, hidden tracks keep their slots during sorting.
 
-## Building from Source
+**Header Bar → Fit to Window** is enabled by default. It distributes widths using
+saved proportions while enforcing minimum widths, so a narrow panel can still
+scroll horizontally. With fitting disabled, columns use preferred widths and
+the last column fills spare space. Headers are centered by default;
+**Headers follow content alignment** changes this.
 
-### Prerequisites
+**Show Row Extra-Line Infos** enables two-line track rows. **Panel Settings…**
+controls alternating backgrounds, global or in-group row parity, selection and
+focus opacity, double-click behavior, extra-line color, and selected-track hover
+tooltips with a custom title format and delay.
 
-- Windows 10 or 11
-- Visual Studio 2022 (or Build Tools for Visual Studio 2022) with:
-  - C++ Desktop Development Workload
-  - MSVC v145 or v143 toolset
-  - Windows 10 / 11 SDK
+The **State** column displays animated playback, pause, and one-based queue
+positions, including multiple queue entries for the same occurrence.
+**Show Now Playing** switches to the playing playlist and reveals the track when
+it passes the filter, expanding its group if needed.
 
-### MSBuild Build
+The custom virtual viewport uses Direct2D/DirectWrite with a buffered GDI
+fallback, bounded text caches, smooth pixel scrolling, touch pan/inertia, and
+MSAA accessibility. Fonts and geometry respond to DPI changes; **Ctrl+wheel**
+adjusts per-panel zoom from **50% to 250%**.
+
+## Groups and artwork
+
+Grouping starts disabled. Use **Groups → Enable Groups** from the track or header
+menu to turn it on. The default Album pattern groups by album artist (falling
+back to artist), album, and disc number.
+
+- Click a group header to collapse or expand it. The menu also offers
+  **Collapse All**, **Expand All**, collapse by default, and auto-collapse to the
+  playing group.
+- Add, edit, delete, or select patterns with a group key, four header text
+  formats, sort expression, and playlist-name filter. Selecting a pattern
+  enables grouping and applies its sort order where the playlist permits it.
+- **Apply Group Sorting** explicitly sorts matching tracks by the pattern.
+- **Enable Playlist Filter** chooses patterns by semicolon-separated playlist
+  names, with `*` as fallback. Explicit names take precedence.
+  **Use current pattern for this playlist** assigns the current playlist name.
+- Two-line headers include track count and total duration. Minimum and extra
+  row settings provide group padding.
+- Enable the **Cover** column to display front-cover artwork in groups. Artwork
+  loads asynchronously and uses a bounded cache.
+
+## Search
+
+The search row has an edit box plus **field** and **scope** dropdowns.
+**Ctrl+F** shows and focuses it. Middle-click the track area or search box, or
+use **Search → Show search row**, to toggle visibility. Hiding it keeps the
+current query and filter active.
+
+Text changes apply after **500 ms** without further typing.
+
+| Field | Matching behavior |
+| --- | --- |
+| **All fields** | Uses foobar2000's search query parser, including field queries and Boolean expressions. |
+| **Artist / Title / Album** | Case-insensitive literal substring matching in the selected field. Quotes and operators are treated as ordinary text. |
+
+For example, use `artist HAS radiohead` or `%rating% GREATER 3` in **All fields**;
+use `radiohead` directly in **Artist** mode.
+
+### Current playlist
+
+The default mode filters the track list. **Search → Search box locates tracks**
+keeps the list and selects/reveals the first match instead, temporarily expanding
+a collapsed group if necessary. No match leaves selection unchanged.
+
+Invalid queries display an inline notice. In filter mode an invalid query shows
+no rows. Escape clears the search and returns focus to the playlist.
+
+### Media library
+
+**Media library** scope searches the library and replaces the contents of a
+fixed-name **Media Library Search** playlist, then activates it. This is a reusable
+snapshot, separate from the optional Media Library autoplaylist.
+
+An existing playlist named **Media Library Search** is reused and its contents
+replaced, with an undo backup. Locked or special reserved playlists are left
+unchanged with an error. A valid query with no matches empties the results;
+clearing the query or entering an invalid query retains the previous results.
+The library is searched again on the next query or field/scope change.
+
+### Type to locate and highlights
+
+With the track list focused, type to locate the first matching **artist** among
+tracks passing the current filter, including collapsed groups. Choose
+**Search → Typing searches group key** to search the current grouping key instead.
+A large-text overlay shows the typed string and whether a match was found.
+Backspace removes a character; Escape clears the string. It also clears after
+**one second** of inactivity or when the list loses focus. This search is separate
+from the search-box query. Space retains its selection action until typing search
+is underway.
+
+Literal matches are highlighted in cells, extra lines, and group headers.
+**Search → Highlight color…** changes the highlight background, with automatic
+text contrast; **Reset highlight color** restores the default. Structured
+foobar2000 queries filter/locate tracks but do not infer highlights from query
+operators, comparisons, or negated conditions.
+
+## Track operations and shortcuts
+
+Ctrl/Shift selection, in-playlist drag reordering, clipboard operations, and
+foobar2000's undo/redo are supported. Double-click plays by default, or enqueues
+when configured in **Panel Settings…**. The track context menu includes native
+foobar2000 commands for the selected visible tracks; available commands depend
+on your installed components.
+
+Duplicate track occurrences remain distinct by playlist index. Copy, cut,
+remove, and queue actions operate on selected visible occurrences; hidden host
+selection is retained. Filtered reordering preserves hidden slots. Removing
+tracks naturally shifts subsequent indices, but does not remove hidden tracks.
+Playlist locks prevent prohibited edits; copying remains available.
+
+These shortcuts apply when the relevant Modern Playlist control receives the
+input. Host/global shortcuts can take precedence.
+
+| Shortcut or gesture | Context | Action |
+| --- | --- | --- |
+| **Ctrl+F** | Panel | Show/focus search and select its text. |
+| **Ctrl+N** | Panel | Create and activate a new playlist. |
+| **Ctrl+T** | Panel | Toggle column headers. |
+| **Ctrl+wheel** | Panel | Adjust zoom in 10% steps, within 50–250%. |
+| **Middle-click** | Track list or search box | Show/hide the search row. |
+| **Escape** | Search box or track list | Clear search; in the list, clear an active typing search first. |
+| **Enter** | Track list | Play the focused track. |
+| **Delete** | Track list | Remove selected visible tracks from the playlist, not from disk. |
+| **Ctrl+A** | Track list | Select all visible tracks. |
+| **Ctrl+C / Ctrl+X** | Track list | Copy/cut selected visible tracks. |
+| **Ctrl+V** | Track list | Append tracks copied from foobar2000. |
+| **Ctrl+Z / Ctrl+Y** | Track list | Undo/redo playlist changes. |
+| **Alt+Up / Alt+Down** | Track list | Nudge selected tracks within the visible order. |
+| **Arrow keys / Page Up / Page Down / Home / End** | Track list | Navigate tracks; Ctrl/Shift modify selection behavior. |
+| **Left / Right / Home / End** | Playlist manager | Activate adjacent, first, or last playlist. |
+| **F2** | Playlist manager | Rename the active ordinary playlist. |
+| **Escape** | Tab drag | Cancel reordering. |
+
+If the column header is hidden, restore it with **Ctrl+T** or **Show column
+headers** in the track context menu.
+
+## Saved settings
+
+Each panel saves its own configuration, including column layouts per playlist
+GUID, grouping patterns, appearance, zoom, tab visibility/placement, and search
+settings. Columns UI layout export/import includes the panel configuration.
+Configuration **version 11** reads older versions 1–10 with defaults for newer
+settings.
+
+Current-playlist query text follows playlist creation, removal, and reordering
+for the lifetime of the panel. Query text and incremental typing strings are
+**not saved across restarts**. Special-playlist flags and identities are saved
+globally, separately from panel settings.
+
+## Building and validation
+
+### Windows: MSBuild and packaging
+
+Install Microsoft C++ build tools with **MSVC v145**, **MSBuild**, and a
+**Windows SDK**. Run from a Visual Studio Developer Command Prompt or PowerShell
+in the repository root:
 
 ```powershell
 msbuild foo_modernplaylist.sln /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v145 /v:minimal
 ```
 
-The compiled DLL will be located at `build/x64/Release/foo_modernplaylist.dll`.
+Output: `build/x64/Release/foo_modernplaylist.dll`. `Debug` and `Win32`
+configurations are also available. The included VS Code **Ctrl+Shift+B** task
+runs the same Release x64 command when MSBuild is available in its environment.
+CMake and Python are not required for the MSBuild component build.
 
-### VS Code Integration
+Dependencies are supplied under `lib/columns_ui`: the foobar2000 SDK, PFC,
+Columns UI SDK, and architecture-specific shared libraries. `msbuild/compat`
+provides compatibility/forwarding headers. The projects use **C++20** and link
+Direct2D, DirectWrite, Windows Imaging Component, and other Windows libraries.
 
-Open the workspace in VS Code and press **`Ctrl+Shift+B`**. This executes the preconfigured MSBuild build task.
+### Windows: CMake alternative
 
----
+CMake **3.24 or newer** and the Microsoft C++ toolchain are required:
 
-## Frequently Asked Questions (FAQ)
+```powershell
+cmake -S . -B build-cmake-x64 -A x64 -T v145
+cmake --build build-cmake-x64 --config Release --parallel
+```
 
-#### Q: Why do I see two rows of playlist tabs?
-**A:** If your foobar2000 layout already includes a native tab container (in Default UI or Columns UI), you may see both host tabs and Modern Playlist tabs. You can either:
-1. Right-click Modern Playlist's header and uncheck **Show playlist tabs** to use your host's tabs.
-2. Or remove the host's native tab container in layout editing mode and keep Modern Playlist's integrated tabs enabled for a unified look.
+## Credits
 
-#### Q: If I filter with search and press Delete, does it delete my whole playlist?
-**A:** No. Deletions, copies, cuts, moves, and queue actions apply **strictly to the visible, filtered tracks**. All hidden tracks remain safely in their exact playlist locations.
-
-#### Q: Does pressing Delete remove the actual audio files from my hard drive?
-**A:** No. Pressing `Delete` removes the tracks from the active foobar2000 playlist only. To delete files from your drive, right-click the tracks and choose **File Operations → Delete file(s)**.
-
-#### Q: Are my custom column setups saved if I restart foobar2000?
-**A:** Yes. foobar2000 saves panel configurations in your profile. In addition, each playlist independently retains its own column definitions, widths, and visibility.
-
-#### Q: Can I use Modern Playlist in both Default UI and Columns UI?
-**A:** Yes. The same DLL provides native support for both UI hosts. You do not need different builds.
-
----
-
-## License & Credits
-
-- This component is provided as-is for educational and personal use.
-- Built using the official **foobar2000 SDK**, **PFC**, and the **Columns UI SDK**.
+Built with the foobar2000 SDK, PFC, Columns UI SDK, and Windows APIs.
+This component is provided as-is for educational and personal use.
