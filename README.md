@@ -2,8 +2,6 @@
 
 A sleek, high-performance playlist manager component for **foobar2000**, featuring integrated playlist tabs, real-time live search, customizable title-formatting columns, and seamless support for both **Default User Interface (DUI)** and **Columns UI (CUI)**.
 
-<img width="1150" height="757" alt="foo_modernplaylist" src="https://github.com/user-attachments/assets/87ec0d78-d401-458b-95cf-4daa2c289eb4" />
-
 ---
 
 ## Table of Contents
